@@ -1,0 +1,6 @@
+,Annualized Return (%),Annualized Volatility (%),Sharpe Ratio,Sortino Ratio,Max Drawdown (%),Total Return (%)
+Max Sharpe — Buy & Hold,19.687,14.714,0.996,1.38,-15.381,144.206
+Max Sharpe — Quarterly Rebalanced,21.265,13.967,1.136,1.581,-15.243,160.625
+Min Variance — Buy & Hold,9.062,10.403,0.463,0.675,-15.394,53.877
+Min Variance — Quarterly Rebalanced,6.828,9.733,0.275,0.417,-16.737,38.841
+"SPY (Benchmark, Buy & Hold)",11.642,17.26,0.469,0.651,-25.361,72.828

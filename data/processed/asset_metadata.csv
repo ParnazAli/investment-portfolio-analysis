@@ -1,0 +1,10 @@
+Ticker,name,sector
+AAPL,Apple Inc.,Technology
+MSFT,Microsoft Corp.,Technology
+JPM,JPMorgan Chase & Co.,Financials
+JNJ,Johnson & Johnson,Healthcare
+AMZN,Amazon.com Inc.,Consumer Discretionary
+XOM,Exxon Mobil Corp.,Energy
+GLD,SPDR Gold Shares,Commodities (Gold)
+TLT,iShares 20+ Yr Treasury Bond ETF,Fixed Income
+SPY,SPDR S&P 500 ETF Trust,Benchmark (Equity Index)
