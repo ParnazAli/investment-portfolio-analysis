@@ -1,6 +1,6 @@
 # 📈 Investment Portfolio Analytics: Risk, Optimization & Backtesting
 
-**A full-stack quantitative investment analysis project** — from raw market data to an optimized, backtested portfolio and an interactive dashboard — built for the *Investment Management* course as a portfolio piece for graduate applications in Business Analytics.
+**A full-stack quantitative investment analysis project** — from raw market data to an optimized, backtested portfolio and an interactive dashboard — built as an academic project for the *Investment Management* course.
 
 > **TL;DR:** Using 5 years of daily data across 8 assets (equities, gold, and Treasury bonds), I built a Markowitz-optimized portfolio that achieved a **21.3% annualized return at 14.0% volatility (Sharpe 1.14)** — outperforming the S&P 500 benchmark (11.6% return, 17.3% volatility, Sharpe 0.47) on both return *and* risk.
 
@@ -90,7 +90,7 @@ investment-portfolio-analysis/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/ParnazAli/investment-portfolio-analysis.git
+git clone https://github.com/<your-username>/investment-portfolio-analysis.git
 cd investment-portfolio-analysis
 
 # 2. Install dependencies
@@ -192,7 +192,7 @@ Quarterly rebalancing **improved** the Max Sharpe portfolio's risk-adjusted retu
 
 **Parnaz Ali**
 Investment Management — Islamic Azad University, Science and Research Branch
-Built as a portfolio project for graduate applications in Business Analytics.
+An academic course project for Investment Management.
 
 📧 [parnazali1383@gmail.com](mailto:parnazali1383@gmail.com) | 💻 [GitHub](https://github.com/ParnazAli)
 
