@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+<title id="title">Portfolio Atelier — Quantitative Investment Research</title>
+<desc id="desc">A vivid plum and rose visual identity with a stylized efficient frontier, portfolio allocation rings, and market chart.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#21102f"/><stop offset=".55" stop-color="#472052"/><stop offset="1" stop-color="#702e68"/></linearGradient>
+  <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb6d7"/><stop offset="1" stop-color="#f15ca9"/></linearGradient>
+  <linearGradient id="violet" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#bca5ff"/><stop offset="1" stop-color="#f2a6d7"/></linearGradient>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#f8dff4" stroke-opacity=".09" stroke-width="1"/></pattern>
+</defs>
+<rect width="1200" height="430" rx="24" fill="url(#bg)"/><rect width="1200" height="430" rx="24" fill="url(#grid)"/>
+<circle cx="1080" cy="55" r="170" fill="#e75ba7" opacity=".09"/><circle cx="940" cy="385" r="220" fill="#a88bff" opacity=".10"/>
+<g font-family="Inter,Segoe UI,Arial,sans-serif">
+  <text x="64" y="62" fill="#ffb6d7" font-size="15" font-weight="700" letter-spacing="4">QUANTITATIVE FINANCE / FIELD NOTES 01</text>
+  <text x="60" y="143" fill="#fff4fb" font-size="58" font-weight="800" letter-spacing="-1.8">PORTFOLIO</text>
+  <text x="60" y="207" fill="url(#pink)" font-size="58" font-weight="800" letter-spacing="-1.8">ATELIER.</text>
+  <text x="64" y="252" fill="#eadcf0" font-size="19">Risk, return, and the mathematics of allocation.</text>
+  <path d="M64 286H475" stroke="#ff9acb" stroke-opacity=".55"/>
+  <text x="64" y="324" fill="#d6c2df" font-size="12" font-weight="700" letter-spacing="2">OPTIMIZE</text>
+  <text x="64" y="350" fill="#fff4fb" font-size="19" font-weight="600">Markowitz · Monte Carlo</text>
+  <text x="285" y="324" fill="#d6c2df" font-size="12" font-weight="700" letter-spacing="2">EVALUATE</text>
+  <text x="285" y="350" fill="#fff4fb" font-size="19" font-weight="600">VaR · CVaR · Backtesting</text>
+</g>
+<g transform="translate(635 55)">
+  <rect x="0" y="0" width="500" height="315" rx="20" fill="#190e27" fill-opacity=".48" stroke="#f7d8f1" stroke-opacity=".18"/>
+  <text x="26" y="34" fill="#e9d6f1" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2">THE EFFICIENT FRONTIER</text>
+  <g transform="translate(38 62)">
+    <path d="M0 190H420M0 140H420M0 90H420M0 40H420M0 0V190" fill="none" stroke="#e8d5ed" stroke-opacity=".13"/>
+    <path d="M12 177 C50 173 79 160 112 139 S175 95 213 70 S290 34 367 13" fill="none" stroke="url(#violet)" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M12 177 C50 173 79 160 112 139 S175 95 213 70 S290 34 367 13 L367 190H12Z" fill="url(#violet)" opacity=".09"/>
+    <g fill="#ffadd4" stroke="#281333" stroke-width="2">
+      <circle cx="50" cy="168" r="5"/><circle cx="90" cy="151" r="5"/><circle cx="140" cy="120" r="5"/><circle cx="188" cy="86" r="5"/><circle cx="242" cy="59" r="5"/><circle cx="310" cy="31" r="5"/><circle cx="367" cy="13" r="6"/>
+    </g>
+    <path d="M188 86L188 190" stroke="#ffadd4" stroke-dasharray="4 5" stroke-opacity=".55"/>
+    <circle cx="188" cy="86" r="10" fill="none" stroke="#ffadd4" stroke-width="2"/>
+    <text x="201" y="78" fill="#ffd9ed" font-family="Inter,Arial,sans-serif" font-size="11">optimal mix</text>
+    <text x="0" y="213" fill="#bdaacb" font-family="Inter,Arial,sans-serif" font-size="10">LOWER RISK</text><text x="338" y="213" fill="#bdaacb" font-family="Inter,Arial,sans-serif" font-size="10">RETURN →</text>
+  </g>
+  <g transform="translate(393 20)">
+    <circle cx="45" cy="42" r="27" fill="none" stroke="#8f6ba9" stroke-width="8"/>
+    <circle cx="45" cy="42" r="27" fill="none" stroke="#ff9ecb" stroke-width="8" stroke-dasharray="82 88" transform="rotate(-90 45 42)"/>
+    <circle cx="45" cy="42" r="27" fill="none" stroke="#bba5ff" stroke-width="8" stroke-dasharray="38 132" stroke-dashoffset="-82" transform="rotate(-90 45 42)"/>
+  </g>
+</g>
+<text x="1138" y="405" text-anchor="end" fill="#e6cde7" opacity=".75" font-family="Inter,Arial,sans-serif" font-size="11" letter-spacing="2">DATA → DECISIONS</text>
+</svg>
