@@ -1,92 +1,187 @@
-# 📈 Investment Portfolio Analytics: Risk, Optimization & Backtesting
+<div align="center">
 
-**A full-stack quantitative investment analysis project** — from raw market data to an optimized, backtested portfolio and an interactive dashboard — built as an academic project for the *Investment Management* course.
+<img src="figures/portfolio_atelier_hero.svg" alt="Portfolio Atelier — Quantitative Investment Research" width="100%">
 
-> **TL;DR:** Using 5 years of daily data across 8 assets (equities, gold, and Treasury bonds), I built a Markowitz-optimized portfolio that achieved a **21.3% annualized return at 14.0% volatility (Sharpe 1.14)** — outperforming the S&P 500 benchmark (11.6% return, 17.3% volatility, Sharpe 0.47) on both return *and* risk.
+<br>
 
----
+[![Python](https://img.shields.io/badge/Python-3B2348?style=flat-square&logo=python&logoColor=FFD4E8)](https://www.python.org/)
+[![Portfolio Theory](https://img.shields.io/badge/Modern_Portfolio_Theory-7B3F83?style=flat-square)](#methodology)
+[![Optimization](https://img.shields.io/badge/Optimization-SciPy-BA82D8?style=flat-square)](#methodology)
+[![Dashboard](https://img.shields.io/badge/Interactive-Streamlit-EA75B7?style=flat-square&logo=streamlit&logoColor=white)](#interactive-dashboard)
+[![Purpose](https://img.shields.io/badge/Purpose-Academic-F5B9D8?style=flat-square)](#limitations--future-work)
 
-## Table of Contents
-- [Project Motivation](#project-motivation)
-- [Key Results](#key-results)
-- [Methodology](#methodology)
-- [Repository Structure](#repository-structure)
-- [How to Run](#how-to-run)
-- [Interactive Dashboard](#interactive-dashboard)
-- [Investment Universe](#investment-universe)
-- [Detailed Findings by Stage](#detailed-findings-by-stage)
-- [Tech Stack](#tech-stack)
-- [Limitations & Future Work](#limitations--future-work)
-- [Author](#author)
+**An end-to-end quantitative investment project** — from daily market prices to portfolio optimization, risk measurement, backtesting, and an interactive dashboard.
+
+</div>
 
 ---
 
-## Project Motivation
+## The question behind the numbers
 
-This project applies core **Modern Portfolio Theory (Markowitz, 1952)** concepts — diversification, the efficient frontier, and risk-adjusted return — to a real, multi-asset-class portfolio using actual market data rather than textbook toy examples. It was built for a university Investment Management course and designed end-to-end as a demonstration of applied data analytics: data engineering, statistical analysis, mathematical optimization, backtesting, and interactive visualization.
+Can a diversified portfolio selected through mathematical optimization outperform a passive benchmark **within a historical sample**—and what happens when we measure risk alongside return?
 
-**Guiding question:** *Can a data-driven, mathematically optimized portfolio of common assets meaningfully beat a passive S&P 500 investment on a risk-adjusted basis?*
+This Investment Management course project uses five years of daily market data to explore that question with **Modern Portfolio Theory**, constrained optimization, Monte Carlo simulation, and backtesting. The goal is not to promise future performance; it is to make the assumptions, trade-offs, and results inspectable.
 
----
+## Performance snapshot
 
-## Key Results
+<table>
+<tr>
+<td width="25%" align="center">
 
-| Strategy | Annualized Return | Annualized Volatility | Sharpe Ratio | Max Drawdown |
+### 21.3%
+
+**Annualized return**
+
+Max Sharpe · quarterly rebalanced
+
+</td>
+<td width="25%" align="center">
+
+### 14.0%
+
+**Annualized volatility**
+
+Max Sharpe · quarterly rebalanced
+
+</td>
+<td width="25%" align="center">
+
+### 1.14
+
+**Sharpe ratio**
+
+Max Sharpe · quarterly rebalanced
+
+</td>
+<td width="25%" align="center">
+
+### −15.2%
+
+**Maximum drawdown**
+
+Max Sharpe · quarterly rebalanced
+
+</td>
+</tr>
+</table>
+
+### Strategy comparison
+
+| Strategy | Annualized return | Annualized volatility | Sharpe ratio | Max drawdown |
 |---|---:|---:|---:|---:|
-| 🏆 **Max Sharpe — Quarterly Rebalanced** | **21.3%** | 14.0% | **1.14** | -15.2% |
-| Max Sharpe — Buy & Hold | 19.7% | 14.7% | 1.00 | -15.4% |
-| Min Variance — Buy & Hold | 9.1% | 10.4% | 0.46 | -15.4% |
-| Min Variance — Quarterly Rebalanced | 6.8% | 9.7% | 0.28 | -16.7% |
-| **S&P 500 (SPY) — Benchmark** | 11.6% | 17.3% | 0.47 | **-25.4%** |
-
-The optimized portfolio not only delivered nearly **2x the benchmark's annualized return**, it did so with **lower volatility and a shallower maximum drawdown** — the central promise of diversification theory, confirmed empirically.
+| **Max Sharpe — Quarterly Rebalanced** | **21.3%** | **14.0%** | **1.14** | −15.2% |
+| Max Sharpe — Buy & Hold | 19.7% | 14.7% | 1.00 | −15.4% |
+| Min Variance — Buy & Hold | 9.1% | 10.4% | 0.46 | −15.4% |
+| Min Variance — Quarterly Rebalanced | 6.8% | 9.7% | 0.28 | −16.7% |
+| S&P 500 (SPY) — Benchmark | 11.6% | 17.3% | 0.47 | −25.4% |
 
 <p align="center">
-  <img src="figures/10_backtest_comparison.png" width="800" alt="Backtest comparison chart">
+  <img src="figures/10_backtest_comparison.png" width="92%" alt="Historical backtest comparison of optimized portfolio strategies and the S&P 500 benchmark">
 </p>
 
----
-
-## Methodology
-
-The analysis follows a 9-stage pipeline, each implemented as an independent, reusable Python module in `src/`:
-
-1. **Data Collection** — 5 years (Aug 2021–Aug 2026) of daily OHLCV data for 9 tickers, sourced from WSJ Market Data.
-2. **Data Cleaning** — standardization, validation, and alignment onto a common trading calendar (`src/data_cleaning.py`).
-3. **Exploratory Data Analysis** — price trends, cumulative returns, correlation structure, return distributions, rolling volatility (`src/eda.py`).
-4. **Risk & Return Metrics** — Sharpe, Sortino, Calmar, historical & parametric VaR, CVaR, Beta, Jensen's Alpha (`src/risk_metrics.py`).
-5. **Portfolio Optimization** — Markowitz efficient frontier via constrained quadratic optimization (SciPy SLSQP) + a 15,000-portfolio Monte Carlo simulation for visual validation (`src/portfolio_optimization.py`).
-6. **Backtesting** — Buy & Hold vs. quarterly-rebalanced simulations of both the Max Sharpe and Minimum Variance portfolios vs. the SPY benchmark (`src/backtesting.py`).
-7. **Interactive Dashboard** — a Streamlit app exposing every stage of the analysis interactively (`dashboard/app.py`).
-
-All daily returns are computed as both **simple** and **log** returns; annualization uses 252 trading days/year throughout, per standard industry convention.
+<sub>These are historical, sample-dependent results—not a forecast or a guarantee. The backtest does not include transaction costs or taxes.</sub>
 
 ---
 
-## Repository Structure
+## From market data to a portfolio decision
 
+<div align="center">
+
+| 01 · PREPARE | 02 · MEASURE | 03 · OPTIMIZE | 04 · TEST |
+|:---:|:---:|:---:|:---:|
+| Clean and align daily prices | Quantify return and downside risk | Explore feasible risk-return mixes | Compare rebalancing strategies |
+| `data_cleaning.py` | `risk_metrics.py` | `portfolio_optimization.py` | `backtesting.py` |
+
+</div>
+
+### 01 / Understand the market
+
+Exploratory analysis covers normalized prices, cumulative returns, return distributions, rolling volatility, and cross-asset correlations. GLD and TLT showed relatively low correlation with the equity holdings in this sample, making diversification worth investigating rather than assuming.
+
+<p align="center">
+  <img src="figures/03_correlation_heatmap.png" width="66%" alt="Correlation heatmap across the investment universe">
+</p>
+
+### 02 / Put risk on the same page as return
+
+The metric suite includes Sharpe, Sortino, Calmar, historical and parametric VaR, CVaR, Beta, and Jensen's Alpha. This helps distinguish ordinary volatility from downside exposure and benchmark-relative performance.
+
+### 03 / Search the feasible portfolio space
+
+The optimizer uses constrained quadratic optimization with SciPy's SLSQP to identify minimum-variance and maximum-Sharpe portfolios. A **15,000-portfolio Monte Carlo simulation** provides an additional visual check on the risk-return landscape.
+
+<p align="center">
+  <img src="figures/08_efficient_frontier.png" width="82%" alt="Efficient frontier and portfolio optimization results">
+</p>
+
+The Maximum Sharpe solution allocated approximately **50% to GLD, 23% to XOM, 17% to JPM, 7% to AAPL, and 3% to JNJ**. Those weights are the optimizer's result for the selected sample and assumptions—not a universal allocation recommendation.
+
+### 04 / Test the strategy through time
+
+The backtest compares buy-and-hold with quarterly rebalancing for both optimized portfolios, using SPY as the benchmark. Quarterly rebalancing improved the Max Sharpe portfolio's historical risk-adjusted result in this sample, but reduced the Minimum Variance portfolio's result—a useful reminder that rebalancing effects depend on the portfolio and period.
+
+---
+
+## The investment universe
+
+The project uses eight portfolio assets across equities, gold, and long-duration US Treasury bonds, with SPY as the benchmark.
+
+| Ticker | Asset | Role |
+|---|---|---|
+| AAPL | Apple | Technology equity |
+| MSFT | Microsoft | Technology equity |
+| JPM | JPMorgan Chase | Financials equity |
+| JNJ | Johnson & Johnson | Healthcare equity |
+| AMZN | Amazon | Consumer discretionary equity |
+| XOM | Exxon Mobil | Energy equity |
+| GLD | SPDR Gold Shares | Gold exposure |
+| TLT | iShares 20+ Year Treasury Bond ETF | Long-duration fixed income |
+| SPY | SPDR S&P 500 ETF Trust | Benchmark |
+
+Daily OHLCV data spans **August 2021 to August 2026**, sourced from WSJ Market Data. Returns are calculated as both simple and logarithmic returns; annualized metrics use 252 trading days per year.
+
+---
+
+## Interactive dashboard
+
+The Streamlit app brings the analysis into one place:
+
+| View | What you can explore |
+|---|---|
+| **Overview** | Asset universe, sample period, and headline metrics |
+| **Price & Returns** | Normalized prices, cumulative returns, and return distributions |
+| **Risk Analysis** | Risk metrics, correlation heatmap, and risk-return scatter |
+| **Portfolio Optimization** | Optimal allocations and efficient frontier |
+| **Backtest** | Strategy comparison and equity curves |
+
+Launch it locally with:
+
+```bash
+streamlit run dashboard/app.py
 ```
+
+## Repository map
+
+```text
 investment-portfolio-analysis/
 ├── data/
-│   ├── raw/                    # Original WSJ CSV exports (9 tickers)
-│   └── processed/              # Cleaned, aligned, and derived datasets
-├── src/                        # Core analytics pipeline (importable Python package)
-│   ├── config.py                   # Central configuration (paths, tickers, assumptions)
-│   ├── data_cleaning.py            # Step 2: ingestion & cleaning
-│   ├── eda.py                      # Step 3: exploratory analysis & visualization
-│   ├── risk_metrics.py             # Step 4: risk/return metric suite
-│   ├── portfolio_optimization.py   # Step 5: Markowitz optimization + Monte Carlo
-│   └── backtesting.py              # Step 6: strategy backtesting
+│   ├── raw/                      # Original market-data CSVs
+│   └── processed/                # Cleaned and derived datasets
+├── src/
+│   ├── config.py                 # Paths, tickers, and assumptions
+│   ├── data_cleaning.py          # Ingestion, validation, alignment
+│   ├── eda.py                    # Exploratory analysis and charts
+│   ├── risk_metrics.py           # Risk and return calculations
+│   ├── portfolio_optimization.py # Markowitz + Monte Carlo
+│   └── backtesting.py            # Strategy simulations
 ├── dashboard/
-│   └── app.py                  # Step 7: interactive Streamlit dashboard
-├── figures/                    # All generated charts (PNG, 150 DPI)
+│   └── app.py                    # Interactive Streamlit dashboard
+├── figures/                      # Generated charts and hero artwork
 ├── requirements.txt
 └── README.md
 ```
 
----
-
-## How to Run
+## Run the project
 
 ```bash
 # 1. Clone the repository
@@ -96,106 +191,44 @@ cd investment-portfolio-analysis
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Run the full pipeline in order
+# 3. Run the analysis stages in sequence
 python -m src.data_cleaning
 python -m src.eda
 python -m src.risk_metrics
 python -m src.portfolio_optimization
 python -m src.backtesting
 
-# 4. Launch the interactive dashboard
+# 4. Open the dashboard
 streamlit run dashboard/app.py
 ```
 
-Each stage reads its inputs from `data/processed/` (produced by the prior stage) and writes its own outputs there — the pipeline is fully reproducible from the raw CSVs in `data/raw/`.
+Each stage reads the processed inputs generated by the previous stage. Start from the raw CSVs and run the pipeline in order for a reproducible workflow.
 
----
+## Tools & methods
 
-## Interactive Dashboard
-
-The Streamlit dashboard (`dashboard/app.py`) provides an explorable interface across five views:
-
-| Tab | Contents |
-|---|---|
-| 🏠 Overview | Asset universe, sample period, quick performance snapshot |
-| 💹 Price & Returns | Interactive normalized price charts, cumulative returns, return distributions |
-| ⚠️ Risk Analysis | Full risk metric table, correlation heatmap, risk-return scatter |
-| 🎯 Portfolio Optimization | Optimal allocations, efficient frontier |
-| 🔁 Backtest | Strategy comparison table and equity curves |
-
-> 💡 *A live deployed version can be added via [Streamlit Community Cloud](https://streamlit.io/cloud) — see the dashboard section for local run instructions.*
-
----
-
-## Investment Universe
-
-| Ticker | Name | Sector / Asset Class |
-|---|---|---|
-| AAPL | Apple Inc. | Technology |
-| MSFT | Microsoft Corp. | Technology |
-| JPM | JPMorgan Chase & Co. | Financials |
-| JNJ | Johnson & Johnson | Healthcare |
-| AMZN | Amazon.com Inc. | Consumer Discretionary |
-| XOM | Exxon Mobil Corp. | Energy |
-| GLD | SPDR Gold Shares | Commodities (Gold) |
-| TLT | iShares 20+ Yr Treasury Bond ETF | Fixed Income |
-| SPY | SPDR S&P 500 ETF Trust | Benchmark (Equity Index) |
-
-The universe was deliberately constructed to span multiple sectors and asset classes (equities across 5 sectors, gold, and long-duration Treasuries) to create meaningful diversification opportunities for the optimization stage.
-
----
-
-## Detailed Findings by Stage
-
-### Exploratory Data Analysis
-Correlation analysis revealed that **GLD and TLT exhibit near-zero correlation with the equity holdings** (0.05–0.21), identifying them early as the most promising diversifiers. Return distributions for growth stocks (AAPL, MSFT, AMZN) showed visible fat tails, motivating the use of VaR/CVaR rather than standard deviation alone in the risk stage.
-
-<p align="center">
-  <img src="figures/03_correlation_heatmap.png" width="500" alt="Correlation heatmap">
-</p>
-
-### Risk & Return Metrics
-GLD (Sharpe 0.82) and XOM (Sharpe 0.75) were the top individual risk-adjusted performers over the sample period; TLT was the clear laggard (Sharpe −0.96), reflecting the impact of the rising-rate environment on long-duration bonds.
-
-### Portfolio Optimization
-The Maximum Sharpe Ratio portfolio allocated **50% to GLD, 23% to XOM, 17% to JPM, 7% to AAPL, and 3% to JNJ** — a solution the optimizer arrived at purely from the data, without any sector-allocation heuristics, yet it aligns closely with classic "growth + defensive hedge" portfolio construction principles.
-
-<p align="center">
-  <img src="figures/08_efficient_frontier.png" width="650" alt="Efficient frontier">
-</p>
-
-### Backtesting
-Quarterly rebalancing **improved** the Max Sharpe portfolio's risk-adjusted return (systematically harvesting gains from outperforming assets) but **hurt** the Minimum Variance portfolio — an interesting asymmetry suggesting rebalancing benefit depends on the underlying return-generating process of the target allocation.
-
----
-
-## Tech Stack
-
-- **Data processing:** pandas, NumPy
-- **Statistics & optimization:** SciPy (`scipy.optimize.minimize`, SLSQP)
+- **Data wrangling:** pandas, NumPy
+- **Statistics and optimization:** SciPy, constrained SLSQP optimization
+- **Risk analysis:** Sharpe, Sortino, Calmar, VaR, CVaR, Beta, Jensen's Alpha
+- **Simulation:** 15,000-portfolio Monte Carlo experiment
 - **Visualization:** Matplotlib, Seaborn, Plotly
-- **Dashboard:** Streamlit
-- **Data source:** WSJ Market Data (historical daily prices)
+- **Application:** Streamlit
+
+## Limitations & next experiments
+
+- Results depend on the selected historical window and the assumptions used.
+- The risk-free rate is fixed at 4.5% annualized rather than modeled as a time-varying series.
+- Transaction costs and taxes are not included, which can materially affect rebalanced strategies.
+- The investable universe is static; short selling, leverage, and changing constituents are outside the current model.
+
+**Next:** test rolling and expanding estimation windows, add factor-based risk decomposition (such as Fama–French), and explore Black–Litterman optimization to combine market equilibrium with explicit views.
 
 ---
 
-## Limitations & Future Work
+## About
 
-- **Sample dependency:** All metrics are historical (2021–2026) and not forward-looking guarantees; the risk-free rate is a fixed assumption (4.5% annualized) rather than a time-varying rate series.
-- **No transaction costs or taxes** are modeled in the backtest, which would reduce real-world returns, especially for the rebalanced strategies.
-- **Long-only, static universe:** the optimizer does not consider short positions, leverage, or dynamically changing the investable universe over time.
-- **Future extensions:** factor-based risk decomposition (Fama-French), a rolling/expanding-window backtest to test parameter stability, and Black-Litterman optimization to incorporate subjective return views.
+**Parnaz Ali**  
+Investment Management course project · Islamic Azad University, Science and Research Branch
 
----
+[GitHub profile](https://github.com/ParnazAli) · [Email](mailto:parnazali1383@gmail.com)
 
-## Author
-
-**Parnaz Ali**
-Investment Management — Islamic Azad University, Science and Research Branch
-An academic course project for Investment Management.
-
-📧 [parnazali1383@gmail.com](mailto:parnazali1383@gmail.com) | 💻 [GitHub](https://github.com/ParnazAli)
-
----
-
-*This project is for academic and educational purposes only and does not constitute investment advice.*
+<sub>For academic and educational purposes only. This repository is not investment advice.</sub>
