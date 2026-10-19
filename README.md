@@ -90,7 +90,7 @@ investment-portfolio-analysis/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-username>/investment-portfolio-analysis.git
+git clone https://github.com/ParnazAli/investment-portfolio-analysis.git
 cd investment-portfolio-analysis
 
 # 2. Install dependencies
