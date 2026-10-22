@@ -79,7 +79,7 @@ Max Sharpe · quarterly rebalanced
   <img src="figures/10_backtest_comparison.png" width="92%" alt="Historical backtest comparison of optimized portfolio strategies and the S&P 500 benchmark">
 </p>
 
-<sub>These are historical, sample-dependent results—not a forecast or a guarantee. The backtest does not include transaction costs or taxes.</sub>
+<sub>**These results are in-sample.** The portfolio weights are estimated on the same August 2021–August 2026 window that the backtest then evaluates, so they show how the strategies would have performed in hindsight—not how they would perform on unseen data. They are not a forecast or a guarantee, and the backtest does not include transaction costs or taxes.<br>Return is annualized as a compound rate (CAGR); Sharpe and Sortino use the annualized arithmetic mean of daily excess returns over a fixed 4.5% risk-free rate, so Sharpe cannot be recomputed exactly from the rounded return and volatility columns.</sub>
 
 ---
 
@@ -96,7 +96,7 @@ Max Sharpe · quarterly rebalanced
 
 ### 01 / Understand the market
 
-Exploratory analysis covers normalized prices, cumulative returns, return distributions, rolling volatility, and cross-asset correlations. GLD and TLT showed relatively low correlation with the equity holdings in this sample, making diversification worth investigating rather than assuming.
+Exploratory analysis covers normalized prices, cumulative returns, return distributions, rolling volatility, and cross-asset correlations. GLD and TLT showed relatively low correlation with the equity holdings in this sample (about −0.12 to 0.10 against the six stocks), making diversification worth investigating rather than assuming.
 
 <p align="center">
   <img src="figures/03_correlation_heatmap.png" width="66%" alt="Correlation heatmap across the investment universe">
@@ -104,7 +104,7 @@ Exploratory analysis covers normalized prices, cumulative returns, return distri
 
 ### 02 / Put risk on the same page as return
 
-The metric suite includes Sharpe, Sortino, Calmar, historical and parametric VaR, CVaR, Beta, and Jensen's Alpha. This helps distinguish ordinary volatility from downside exposure and benchmark-relative performance.
+The metric suite includes Sharpe, Sortino, Calmar, maximum drawdown, historical and parametric VaR, CVaR, Beta, and Jensen's Alpha. This helps distinguish ordinary volatility from downside exposure and benchmark-relative performance.
 
 ### 03 / Search the feasible portfolio space
 
@@ -114,17 +114,17 @@ The optimizer uses constrained quadratic optimization with SciPy's SLSQP to iden
   <img src="figures/08_efficient_frontier.png" width="82%" alt="Efficient frontier and portfolio optimization results">
 </p>
 
-The Maximum Sharpe solution allocated approximately **50% to GLD, 23% to XOM, 17% to JPM, 7% to AAPL, and 3% to JNJ**. Those weights are the optimizer's result for the selected sample and assumptions—not a universal allocation recommendation.
+The Maximum Sharpe solution allocated approximately **50% to GLD, 23% to XOM, 17% to JPM, 7% to AAPL, and 3% to JNJ**. Those weights are the optimizer's result for the selected sample and assumptions—not a universal allocation recommendation. The solution is concentrated (half the portfolio in gold) because the long-only optimizer has no per-asset weight cap, and it is estimated on the full sample, so it is in-sample by construction. The optimizer works on log returns, while the backtest uses simple returns; this is why the optimizer's own Sharpe estimate (0.96) differs from the backtested 1.14.
 
 ### 04 / Test the strategy through time
 
-The backtest compares buy-and-hold with quarterly rebalancing for both optimized portfolios, using SPY as the benchmark. Quarterly rebalancing improved the Max Sharpe portfolio's historical risk-adjusted result in this sample, but reduced the Minimum Variance portfolio's result—a useful reminder that rebalancing effects depend on the portfolio and period.
+The backtest compares buy-and-hold with quarterly rebalancing for both optimized portfolios, using SPY as the benchmark. Because the weights were fitted on the same window, this is an in-sample comparison. Quarterly rebalancing improved the Max Sharpe portfolio's historical risk-adjusted result in this sample, but reduced the Minimum Variance portfolio's result—a useful reminder that rebalancing effects depend on the portfolio and period.
 
 ---
 
 ## The investment universe
 
-The project uses eight portfolio assets across equities, gold, and long-duration US Treasury bonds, with SPY as the benchmark.
+The project uses eight portfolio assets—six equities across five sectors, gold, and long-duration US Treasury bonds—with SPY as a ninth series used only as the benchmark.
 
 | Ticker | Asset | Role |
 |---|---|---|
@@ -176,6 +176,8 @@ investment-portfolio-analysis/
 │   └── backtesting.py            # Strategy simulations
 ├── dashboard/
 │   └── app.py                    # Interactive Streamlit dashboard
+├── notebooks/
+│   └── portfolio_analysis.ipynb  # Narrated walkthrough of the full analysis
 ├── figures/                      # Generated charts and hero artwork
 ├── requirements.txt
 └── README.md
@@ -215,12 +217,14 @@ Each stage reads the processed inputs generated by the previous stage. Start fro
 
 ## Limitations & next experiments
 
-- Results depend on the selected historical window and the assumptions used.
+- **In-sample design:** weights are optimized and backtested on the same 2021–2026 window, so results are not out-of-sample evidence. Results also depend on the selected historical window and the assumptions used.
 - The risk-free rate is fixed at 4.5% annualized rather than modeled as a time-varying series.
 - Transaction costs and taxes are not included, which can materially affect rebalanced strategies.
 - The investable universe is static; short selling, leverage, and changing constituents are outside the current model.
+- The long-only optimizer has no weight cap, so the Max Sharpe portfolio is concentrated (about 50% in GLD).
+- Returns and Sharpe use different conventions (CAGR versus arithmetic-mean excess return), and the optimizer uses log returns while the backtest uses simple returns.
 
-**Next:** test rolling and expanding estimation windows, add factor-based risk decomposition (such as Fama–French), and explore Black–Litterman optimization to combine market equilibrium with explicit views.
+**Next:** test rolling and expanding estimation windows to evaluate the strategies out-of-sample, add factor-based risk decomposition (such as Fama–French), and explore Black–Litterman optimization to combine market equilibrium with explicit views.
 
 ---
 
