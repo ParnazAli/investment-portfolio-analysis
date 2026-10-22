@@ -19,7 +19,7 @@ can be embedded directly in the analysis notebook and the GitHub README.
 Usage:
     python -m src.eda
 
-Author: [Your Name]
+Author: Parnaz Ali
 Course: Investment Management — Portfolio Analytics Project
 """
 

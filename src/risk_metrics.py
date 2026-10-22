@@ -19,7 +19,7 @@ All metrics are computed from daily simple returns and annualized using
 Usage:
     python -m src.risk_metrics
 
-Author: [Your Name]
+Author: Parnaz Ali
 Course: Investment Management — Portfolio Analytics Project
 """
 

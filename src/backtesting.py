@@ -21,7 +21,7 @@ from Step 4.
 Usage:
     python -m src.backtesting
 
-Author: [Your Name]
+Author: Parnaz Ali
 Course: Investment Management — Portfolio Analytics Project
 """
 

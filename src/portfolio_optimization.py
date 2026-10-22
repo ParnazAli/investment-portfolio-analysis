@@ -23,7 +23,7 @@ academic portfolio construction exercise.
 Usage:
     python -m src.portfolio_optimization
 
-Author: [Your Name]
+Author: Parnaz Ali
 Course: Investment Management — Portfolio Analytics Project
 """
 

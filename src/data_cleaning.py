@@ -16,7 +16,7 @@ Usage:
     from src.data_cleaning import build_clean_dataset
     close_prices, simple_returns, log_returns = build_clean_dataset()
 
-Author: [Your Name]
+Author: Parnaz Ali
 Course: Investment Management — Portfolio Analytics Project
 """
 
