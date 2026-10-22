@@ -12,7 +12,7 @@ loads instantly without recomputation.
 Run locally with:
     streamlit run dashboard/app.py
 
-Author: [Your Name]
+Author: Parnaz Ali
 Course: Investment Management — Portfolio Analytics Project
 """
 
